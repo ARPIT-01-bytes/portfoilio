@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arpit Panigrahi</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            overflow-x: hidden;
+        }
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            z-index: 100;
+        }
+        /* Header Section */
+        header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 1s ease-in-out;
+        }
+        header.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        header h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        header p {
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+        /* Section Styling */
+        section {
+            padding: 60px 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease-in-out;
+        }
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        section p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        /* Skills Section */
+        .skills {
+            background-color: #111;
+        }
+        .skills ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .skills li {
+            font-size: 1.1rem;
+            border: 2px solid #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            white-space: nowrap;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .skills li:hover {
+            background-color: #fff;
+            color: #000;
+        }
+        /* Contact Section */
+        footer {
+            padding: 40px 20px;
+            background-color: #111;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease-in-out;
+        }
+        footer.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        footer p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            border: 2px solid #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        footer a:hover {
+            background-color: #fff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">Loading 0%</div>
+    <!-- Header -->
+    <header>
+        <h1>Arpit Panigrahi</h1>
+        <p>I am a student from India currently pursuing B.Tech CSE at Kalinga Institute of Industrial Technology.</p>
+    </header>
+    <!-- Development Skills Section -->
+    <section class="skills">
+        <h2>Development Skills</h2>
+        <ul>
+            <li>HTML/CSS</li>
+            <li>Java</li>
+            <li>C++</li>
+            <li>MySQL</li>
+        </ul>
+    </section>
+    <!-- Attributes Section -->
+    <section>
+        <h2>Attributes</h2>
+        <p>Leadership, Great Communication Skills, Thrives Under Pressure</p>
+    </section>
+    <!-- Contact Section -->
+    <footer>
+        <p>Contact me:</p>
+        <a href="mailto:arpitpanigrahi19@gmail.com">arpitpanigrahi19@gmail.com</a>
+    </footer>
+
+    <script>
+        // Loading Screen Logic
+        const loadingScreen = document.getElementById('loading-screen');
+        let loadProgress = 0;
+        const loadingInterval = setInterval(() => {
+            loadProgress++;
+            loadingScreen.textContent = `Loading ${loadProgress}%`;
+            if (loadProgress === 100) {
+                clearInterval(loadingInterval);
+                loadingScreen.style.display = 'none';
+                document.body.style.overflowY = 'auto'; // Enable scrolling after loading
+                animateSections(); // Start animations after loading screen
+            }
+        }, 30);
+
+        // Intersection Observer for Animations
+        function animateSections() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            const elementsToAnimate = document.querySelectorAll('header, section, footer');
+            elementsToAnimate.forEach(el => observer.observe(el));
+        }
+
+        // Disable scrolling during loading
+        document.body.style.overflowY = 'hidden';
+    </script>
+</body>
+</html>
